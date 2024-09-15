@@ -1,0 +1,63 @@
+.distanceInputContainer {
+    display: flex;
+    gap: 20px;
+    width: 100vw;
+    height: 100vw;
+    /* background-image: url('../../../assets/pace-background.png'); */
+    /* background-size: contain; */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: calc(95vw) calc(90vw);
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    /* 자식 요소인 ::before를 위해 필요 */
+    overflow: hidden;
+    /* ::before의 이미지가 넘치지 않도록 */
+}
+
+
+.distanceInputContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../../../assets/pace-background.png');
+    background-size: calc(95vw) calc(90vw);
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: blur(3px);
+    /* 배경 이미지 흐리기 */
+    opacity: 0.9;
+    /* 살짝 투명하게 */
+    z-index: -1;
+    /* 콘텐츠 뒤에 배경이 오도록 */
+}
+
+.distanceInput {
+    justify-content: center;
+    width: 40px;
+    height: 50px;
+    font-size: 2rem;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-right: 10px;
+    transition:
+        border-color 0.3s ease,
+        background-color 0.3s ease;
+    background: none;
+    color: white;
+    padding: 0;
+}
+
+.distanceInput:focus {
+    border-color: #1890ff;
+    outline: none;
+}
+
+.distanceInput {
+    font-family: "Pretendard-bold";
+}

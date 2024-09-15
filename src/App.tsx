@@ -28,6 +28,9 @@ import "slick-carousel/slick/slick-theme.css";
 import RunningEnd from "./pages/running/end/RunningEnd";
 import NotFound from "./pages/404/NotFound";
 import { RecoilRoot } from "recoil";
+import AllScenarios, {
+	loader as allScenariosLoader,
+} from "./pages/story/all-scenarios/AllScenarios";
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -42,6 +45,11 @@ const router = createBrowserRouter(
 
 				<Route path="/home" element={<Home />} />
 				<Route path="/story" element={<Story />} />
+				<Route
+					path="/story/all"
+					element={<AllScenarios />}
+					loader={allScenariosLoader}
+				/>
 				<Route path="/statistics" element={<Statistics />} />
 				<Route path="/tutorial" element={<Tutorial />} />
 				<Route path="/activities" element={<Activities />} />

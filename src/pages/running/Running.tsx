@@ -1,21 +1,16 @@
-import { Box, Button, useMediaQuery } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
-import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk";
+import { Map } from "react-kakao-maps-sdk";
 import Tracker from "./tracker/Tracker";
 import { postRunning, getRunning } from "../../api/api";
-import {
-	getDistance,
-	getPace,
-	getFormattedPace,
-} from "../../utils/running_util";
+import { getDistance, getPace } from "../../utils/running_util";
 import { useNavigate } from "react-router-dom";
-import RunningEnd from "./end/RunningEnd";
 import Status from "./status/Status";
 import Scene from "./scene/Scene";
 import AudioPlayer, { SOUND } from "../../components/AudioPlayer";
 import VolumeControl from "../../components/VolumeControl";
 import RandomEffectSound from "./random-effect-sound/RandomEffectSound";
-import Title from "../../components/Title";
+import styles from "./Running.module.css";
 
 interface PathType {
 	lat: number;
@@ -41,7 +36,7 @@ export default function Running() {
 		maximumAge: 0,
 	};
 	const [locations, setLocations] = useState<PathType[]>([]);
-	const [showScenario, setShowScenario] = useState(false);
+	const [showScenario, setShowScenario] = useState(true);
 	const [checkpointAudioFile, setCheckpointAudioFile] = useState<string>("");
 	const MAX_WIDTH = "480px";
 
@@ -109,20 +104,41 @@ export default function Running() {
 		setPace(prevRunningInfo.data.data.pace);
 	}
 
+	const onClickTestMode = () => {
+		if (testMode) {
+			geo.clearWatch(geolocationId.current);
+			geolocationId.current = 0;
+		} else {
+			geolocationId.current = geo.watchPosition((g) => {
+				setLatitude((prev) => {
+					setPrevLatitude(prev);
+					return g.coords.latitude;
+				});
+				setLongitude((prev) => {
+					setPrevLongitude(prev);
+					return g.coords.longitude;
+				});
+			});
+		}
+		setTestMode((prev) => !prev);
+	};
+
 	const onClickEnd = async (e) => {
 		/** 러닝 끝내기 */
 		let targetPace;
-		await postRunning({
-			id: runningId,
-			endTime: new Date(Date.now()),
-			distance: distance,
-			pace: pace,
-			longitude: longitude,
-			latitude: latitude,
-		}).then((res) => {
+		try {
+			const res = await postRunning({
+				id: runningId,
+				endTime: new Date(Date.now()),
+				distance: distance,
+				pace: pace,
+				longitude: longitude,
+				latitude: latitude,
+			});
 			targetPace = res.data.data.targetPace;
-			//console.log(res.data.data);
-		});
+		} catch (err) {
+			navigate("/error");
+		}
 		elapsedTime.current = parseInt(localStorage.getItem("curTime"));
 		localStorage.removeItem("runningId");
 		localStorage.removeItem("curTime");
@@ -267,66 +283,36 @@ export default function Running() {
 			<Box
 				sx={{
 					position: "fixed",
-					bottom: "1.5rem",
+					bottom: "0",
 					width: "100%",
 					maxWidth: MAX_WIDTH,
+					height: "80px",
 				}}
 			>
-				<Status distance={distance} pace={pace} />
 				<Box
-					mb={2.5}
 					sx={{
 						display: "flex",
 						justifyContent: "space-evenly",
 					}}
 				>
 					{import.meta.env.DEV ? (
-						<Button
-							variant={testMode ? "contained" : "outlined"}
-							onClick={() => {
-								setTestMode((prev) => !prev);
-								if (testMode) {
-									geo.clearWatch(geolocationId.current);
-									geolocationId.current = 0;
-								} else {
-									geolocationId.current = geo.watchPosition(
-										(g) => {
-											setLatitude((prev) => {
-												setPrevLatitude(prev);
-												return g.coords.latitude;
-											});
-											setLongitude((prev) => {
-												setPrevLongitude(prev);
-												return g.coords.longitude;
-											});
-										},
-									);
-								}
-							}}
+						<button
+							className={styles.button}
+							onClick={onClickTestMode}
 						>
 							TEST {testMode ? "ON" : "OFF"}
-						</Button>
+						</button>
 					) : undefined}
 
-					<Button
-						variant={"outlined"}
-						onClick={onClickEnd}
-						sx={{
-							fontFamily: "Pretendard-regular",
-						}}
-					>
-						러닝 그만하기
-					</Button>
-					<Button
-						variant="contained"
+					<button className={styles.button} onClick={onClickEnd}>
+						러닝 종료
+					</button>
+					<button
+						className={styles.button}
 						onClick={() => setShowScenario((prev) => !prev)}
-						sx={{
-							backgroundColor: "#1890FF",
-							fontFamily: "Pretendard-regular",
-						}}
 					>
 						{!showScenario ? "시나리오 화면" : "지도 보기"}
-					</Button>
+					</button>
 				</Box>
 				{/* <AudioPlayer filename={SOUND.러닝발소리} play loop /> */}
 				<AudioPlayer filename={SOUND.교통소음1} play loop />
@@ -339,6 +325,7 @@ export default function Running() {
 				) : undefined}
 				<VolumeControl />
 				<RandomEffectSound />
+				<Status distance={distance} pace={pace} />
 			</Box>
 		</Box>
 	);

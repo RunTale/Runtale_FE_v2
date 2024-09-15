@@ -1,0 +1,16 @@
+.scenario-list-container {
+    box-shadow: inset 0 8px 8px rgba(245, 182, 93, 0.2);
+}
+
+.scenario-list {
+    display: flex;
+    overflow: scroll;
+    gap: 20px;
+}
+
+.start-button {
+    background: rgba(245, 182, 93, 0.3);
+    border-radius: 19.9111px;
+    color: white;
+    width: 100%;
+}

@@ -33,7 +33,7 @@ export function getPace(distance, elapsedTime) {
 export function getFormattedDistance(distance) {
 	const km = Math.trunc(distance);
 	const m = Math.trunc((distance - km) * 1000);
-	return (km + m / 1000).toFixed(3);
+	return (km + m / 1000).toFixed(2);
 }
 
 export function getFormattedPace(pace) {

@@ -1,10 +1,10 @@
 import React from "react";
-import { Box, List, ListItem, Stack } from "@mui/material";
+import { Box, ListItem, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
-import Title from "../../components/Title";
-import AnimalCrawls from "../../components/AnimalCrawls";
-import LockIcon from '@mui/icons-material/Lock';
-import { Navigate, useNavigate } from "react-router-dom";
+import LockIcon from "@mui/icons-material/Lock";
+import GradientCard from "../../components/GradientCard";
+import TopScenarioList from "./top-scenario-list/TopScenarioList";
+import styles from "./Stroy.module.css";
 
 interface Scenario {
 	title: string;
@@ -48,7 +48,10 @@ const scenarios: Scenario[] = [
 	},
 ];
 
-const MockScenarioSquare: React.FC<{ imageUrl: string; isBlurred: boolean }> = ({ imageUrl, isBlurred }) => {
+const MockScenarioSquare: React.FC<{
+	imageUrl: string;
+	isBlurred: boolean;
+}> = ({ imageUrl, isBlurred }) => {
 	return (
 		<Box
 			sx={{
@@ -144,30 +147,34 @@ const ScenarioItem: React.FC<Scenario> = ({
 
 const Story: React.FC = () => {
 	return (
-		<Box p={1}>
-			<Title
-				level={2}
-				style={{
-					textAlign: "left",
-				}}
-			>
-				<AnimalCrawls />
-			</Title>
+		<Box m={0} p={0}>
 			<Stack textAlign="left">
-				<Title
-					level={3}
-					style={{
-						color: "#1890FF",
-						fontFamily: "Pretendard-Bold",
-					}}
-				>
-					Scenario
-				</Title>
-				<List>
+				<Box className={styles["background-image"]}>
+					<Box p={2} pt={5}>
+						{"홍길동"}님, <br />
+						오늘도 런닝을 시작해보아요!
+					</Box>
+					<Box display={"flex"} gap={"15px"}>
+						<GradientCard height={"50px"} width={"96px"}>
+							<Box fontSize={"1.2rem"}>
+								<p>오늘의 목표!</p>
+								<p style={{ color: "white" }}>{1}시간</p>
+							</Box>
+						</GradientCard>
+						<GradientCard height={"50px"} width={"96px"}>
+							<Box fontSize={"1.2rem"}>
+								<p>어제의 러닝</p>
+								<p style={{ color: "white" }}>{1}시간</p>
+							</Box>
+						</GradientCard>
+					</Box>
+				</Box>
+				<TopScenarioList />
+				{/* <List>
 					{scenarios.map((scenario, index) => (
 						<ScenarioItem key={index} {...scenario} />
 					))}
-				</List>
+				</List> */}
 			</Stack>
 		</Box>
 	);

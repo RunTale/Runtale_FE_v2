@@ -6,9 +6,9 @@ import requestApi from "../../api/api";
 import AuthContext from "../../context/AuthContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getRunning } from "../../api/api";
+import PaceInput from "./pace-input/PaceInput";
 
 export default function SetDistance() {
-	const SIZE = 300;
 	const [nickname, setNickname] = useState("");
 	const [minutes, setMinutes] = useState("");
 	const [seconds, setSeconds] = useState("");
@@ -65,24 +65,6 @@ export default function SetDistance() {
 		setSeconds(e.target.value);
 	};
 
-	/*const handleSubmit = async () => {
-		if (!isAuthenticated || userId < 0 || pace <= 0) return;
-		const pace = `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
-		try {
-			const response = await requestApi.post(
-				`/users/${userId}/set-pace`,
-				{ pace },
-			);
-			if (response.data.status === 200) {
-				console.log("Pace set successfully");
-			} else {
-				console.error("Error setting pace:", response.data.message);
-			}
-		} catch (error) {
-			console.error("Error setting pace:", error);
-		}
-	};*/
-
 	if (scenarioId >= 2) {
 		return (
 			<>
@@ -95,92 +77,31 @@ export default function SetDistance() {
 	}
 	return (
 		<Box p={1}>
-			{/* <Title
-				level={2}
-				style={{
-					textAlign: "left",
-					marginBottom: "30px",
-				}}
-			>
-				<AnimalCrawls />
-			</Title> */}
 			<div className={`${styles["Content-Container"]}`}>
-				<Title level={2}>
+				<Box component="picture">
+					<PaceInput
+						minutes={minutes}
+						handleMinutesChange={handleMinutesChange}
+						seconds={seconds}
+						handleSecondsChange={handleSecondsChange}
+					/>
+				</Box>
+				<Title level={2} style={{ color: "#909090" }}>
 					<span
 						style={{
-							color: "#1890FF",
+							color: "#ECE3D7",
 							fontFamily: "Pretendard-bold",
 						}}
 					>
 						{nickname}
 					</span>{" "}
-					님의 오늘 목표 페이스
+					님의 <br /> 목표 페이스
 				</Title>
-				<div className={styles.distanceInputContainer}>
-					<div className={styles.minuteWrap}>
-						<input
-							type="number"
-							className={styles.distanceInput}
-							min="0"
-							value={minutes}
-							onChange={handleMinutesChange}
-						/>
-						<span
-							style={{
-								fontFamily: "Pretendard-bold",
-								fontSize: "25px",
-							}}
-						>
-							m
-						</span>
-					</div>
-					<div className={styles.secondWrap}>
-						<input
-							type="number"
-							className={styles.distanceInput}
-							min="0"
-							max="59"
-							value={seconds}
-							onChange={handleSecondsChange}
-						/>
-						<span
-							style={{
-								fontFamily: "Pretendard-bold",
-								fontSize: "25px",
-							}}
-						>
-							s
-						</span>
-					</div>
-				</div>
-				<Box component="picture">
-					<img
-						src="/img/runemoji.png"
-						alt="🏁"
-						width={SIZE}
-						height={SIZE}
-					/>
-				</Box>
-				<p style={{ margin: 0, fontSize: "13px", color: "#626773" }}>
-					오늘도 재밌게 달려볼까요? <br />
-					Runtale은 언제나 {nickname} 님의 건강한 러닝을 응원합니다!
-					<br />* 🔊시나리오 진행 시 이어폰 착용을 권장합니다 *
+				<p style={{ margin: 0, fontSize: "13px", color: "#909090" }}>
+					* 🔊시나리오 진행 시 이어폰 착용을 권장합니다 *
 				</p>
-				<Button
-					variant="contained"
-					disableElevation
-					sx={{
-						mt: 1,
-						borderRadius: "100px",
-						width: "300px",
-						height: "50px",
-						backgroundColor: "#1890FF",
-						color: "#FFFFFF",
-						fontFamily: "Pretendard-bold",
-						"&:hover": {
-							backgroundColor: "#096DD9",
-						},
-					}}
+				<button
+					className={styles["start-button"]}
 					onClick={() =>
 						navigate("/startrunning", {
 							state: {
@@ -193,8 +114,8 @@ export default function SetDistance() {
 						})
 					}
 				>
-					시나리오 시작!
-				</Button>
+					시나리오 시작하기
+				</button>
 			</div>
 		</Box>
 	);

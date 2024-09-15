@@ -6,7 +6,7 @@ export default defineConfig({
 	server: {
 		proxy: {
 			"/api": {
-				target: "http://ec2-54-180-202-141.ap-northeast-2.compute.amazonaws.com:8080",
+				target: "http://54.180.202.141",
 				changeOrigin: true,
 				secure: false,
 				rewrite: (path) => path.replace(/^\/api/, ""), // '/api'를 제거하여 실제 경로로 만듭니다.

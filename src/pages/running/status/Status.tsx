@@ -6,7 +6,7 @@ import {
 } from "../../../utils/running_util";
 import { useEffect, useState } from "react";
 import Title from "../../../components/Title";
-import "./Status.css";
+import styles from "./Status.module.css";
 
 interface StatusPropsType {
 	distance: number;
@@ -35,41 +35,41 @@ export default function Status({ distance, pace }: StatusPropsType) {
 	}, []);
 
 	return (
-		<Box
-			m={1}
-			mt={4}
-			mb={2.5}
-			sx={{
-				// display: "flex",
-				// justifyContent: "space-evenly",
-				// alignItems: "center",
-				height: "100px",
-				borderRadius: 3,
-				backgroundColor: "#DCE9F5",
-				boxShadow: "3px 3px 3px rgb(0,0,0,0.1)",
-			}}
-		>
-			<Grid container spacing={2}>
-				<Grid item xs={4}>
-					<span className="bitter">{km}</span>km
-					<Title level={3}>달린 거리</Title>
+		<>
+			<progress
+				className={styles["status-progress"]}
+				max={100}
+				value={70}
+			/>
+			<Box className={styles["status-container"]}>
+				<Grid
+					container
+					spacing={1}
+					sx={{ color: "#909090", fontSize: "0.9rem" }}
+					pt={2}
+				>
+					<Grid item xs={4}>
+						<Title level={3}>거리</Title>
+						<span className={styles["bitter"]}>{km}</span>km
+					</Grid>
+					<Grid item xs={4}>
+						<Title level={3}>시간</Title>
+						<span className={styles["bitter"]}>{minutes}</span>분
+						<span className={styles["bitter"]}>{seconds}</span>초
+					</Grid>
+					<Grid item xs={4}>
+						<Title level={3}>평균 페이스</Title>
+						<span className={styles["bitter"]}>
+							{!pace || pace === Infinity ? "-" : paceMinutes}
+						</span>
+						m
+						<span className={styles["bitter"]}>
+							{!pace || pace === Infinity ? "-" : paceSeconds}
+						</span>
+						s
+					</Grid>
 				</Grid>
-				<Grid item xs={4}>
-					<span className="bitter">
-						{!pace || pace === Infinity ? "-" : paceMinutes}
-					</span>
-					m
-					<span className="bitter">
-						{!pace || pace === Infinity ? "-" : paceSeconds}
-					</span>
-					s<Title level={3}>평균 페이스</Title>
-				</Grid>
-				<Grid item xs={4}>
-					<span className="bitter">{minutes}</span>분
-					<span className="bitter">{seconds}</span>초
-					<Title level={3}>시간</Title>
-				</Grid>
-			</Grid>
-		</Box>
+			</Box>
+		</>
 	);
 }

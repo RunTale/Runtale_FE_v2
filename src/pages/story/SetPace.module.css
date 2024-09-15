@@ -1,37 +1,33 @@
 .Content-Container {
+	background-color: black;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: 20px;
+	height: 100vh;
+	position: fixed;
+	padding-top: 50px;
+	left: 0;
 }
 
 .Content-Container h2 {
 	font-size: 20px;
 }
 
-.distanceInputContainer {
-	display: flex;
-	gap: 20px;
-}
 
-.distanceInput {
-	width: 60px;
-	height: 60px;
-	font-size: 40px;
-	text-align: center;
-	border: 1px solid #ccc;
-	border-radius: 10px;
-	margin-right: 10px;
-	transition:
-		border-color 0.3s ease,
-		background-color 0.3s ease;
-}
+.start-button {
+	/* Group 222 */
 
-.distanceInput:focus {
-	border-color: #1890ff;
-	outline: none;
-}
+	/* Rectangle 3046 */
 
-.distanceInput {
-	font-family: "Pretendard-bold";
+	position: absolute;
+	width: 188px;
+	height: 50px;
+	left: calc(50% - 188px/2 + 0.5px);
+	top: 632px;
+
+	background: rgba(245, 182, 93, 0.3);
+	box-shadow: 0px 4px 20px rgba(245, 182, 93, 0.3);
+	border-radius: 30px;
+	color: white;
 }
