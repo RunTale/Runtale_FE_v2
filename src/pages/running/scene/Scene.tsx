@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import AudioPlayer, { SOUND } from "../../../components/AudioPlayer";
 import { Button, Box, useMediaQuery } from "@mui/material";
 import Status from "../status/Status";
-import background from "../../../assets/scenario-background-0.png";
 
 interface SceneProps {
 	distance: number;
@@ -19,14 +18,23 @@ export default function Scene({ distance, pace }: SceneProps) {
 			<Box
 				sx={{
 					width: "100%",
-					height: "100vh",
+					height: "70vh",
 					position: "fixed",
 					top: 0,
 					left: 0,
-					backgroundImage: `url(${background})`,
-					backgroundSize: "cover",
 				}}
-			></Box>
+			>
+				<img
+					src={scenarioImage}
+					alt="Scenario"
+					style={{
+						width: "100%",
+						height: "100%",
+						maxWidth: MAX_WIDTH,
+						borderRadius: matches ? "25px 25px 0 0" : 0,
+					}}
+				/>
+			</Box>
 		</>
 	);
 }

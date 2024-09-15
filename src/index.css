@@ -15,23 +15,25 @@
 
 @font-face {
 	font-family: "Pretendard-Regular";
-	src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
+	src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+		format("woff");
 	font-weight: 400;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: "Pretendard-Bold";
-	src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff") format("woff");
+	src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff")
+		format("woff");
 	font-weight: 700;
 	font-style: normal;
 }
 
 @font-face {
-	font-family: 'RixInooAriDuriR';
-	src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2') format('woff2');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'RixInooAriDuriR';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 
 a {
@@ -39,7 +41,6 @@ a {
 	color: #646cff;
 	text-decoration: inherit;
 }
-
 a:hover {
 	color: #535bf2;
 }
@@ -50,8 +51,6 @@ body {
 	display: flex;
 	place-items: center;
 	min-width: 320px;
-	background-color: #1a1a1a;
-	color: white;
 }
 
 h1 {
@@ -70,11 +69,9 @@ button {
 	cursor: pointer;
 	transition: border-color 0.25s;
 }
-
 button:hover {
 	border-color: #646cff;
 }
-
 /*
 button:focus,
 button:focus-visible {
@@ -98,8 +95,4 @@ button:focus-visible {
 	position: relative;
 	top: 3.5rem;
 	margin-bottom: 10rem;
-}
-
-input:focus {
-	color: rgb(245, 182, 93)
 }
